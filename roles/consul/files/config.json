@@ -1,0 +1,19 @@
+{
+	"enable_script_checks" : true,
+	"checks": [
+		{
+			"id": "memory",
+			"name": "Memory utilization",
+			"notes": "Critical 95% util, warning 80% util",
+			"script": "/data/consul/scripts/MemoryCheck.sh",
+			"interval": "10s"
+		},
+		{
+			"id": "cpu",
+			"name": "CPU utilization",
+			"notes": "Critical 30% util, warning 20% util",
+			"script": "/data/consul/scripts/CPUCheck.sh",
+			"interval": "10s"
+		}
+	]
+}

@@ -1,0 +1,2 @@
+- name: Run NodeServer service
+  shell: "docker run -d -P --rm --name {{ NodeApplicationName }} nodeserver"

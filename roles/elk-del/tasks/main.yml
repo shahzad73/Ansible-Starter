@@ -1,0 +1,7 @@
+- name: ElasticSearch Container is stopped
+  docker_container:
+    name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    state: stopped
+  when: consul_is_Server is defined
+  tags: [elasticsearch]

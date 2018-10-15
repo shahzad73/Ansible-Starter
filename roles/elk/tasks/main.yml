@@ -1,0 +1,27 @@
+- name: Directories are created
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items: "{{ directories }}"
+  tags: [elasticsearch]
+
+- name: Set directory permissions 
+  file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: 0777
+  with_items: "{{ directories }}"
+  tags: [elasticsearch]
+
+- name: Container is running
+  docker_container:
+    name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.2
+    state: started
+    ports:
+      - 9200:9200
+    volumes:
+      /data/elasticsearch:/usr/share/elasticsearch/data
+  when: consul_is_Server is defined
+  tags: [elasticsearch]

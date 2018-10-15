@@ -1,0 +1,4 @@
+[template]
+src = "/data/consul-template/example.ctmpl"
+dest = "/data/consul-template/example.conf"
+keys = ["/nginx"]

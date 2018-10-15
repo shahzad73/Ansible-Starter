@@ -1,0 +1,77 @@
+- name: Directories are created
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items: "{{ directories }}"
+  tags: [consul]
+
+- name: Files are copied
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ files }}"
+  tags: [consul]
+
+
+- name: iptables set rule 1
+  iptables:
+    chain: INPUT
+    ctstate: ESTABLISHED,RELATED
+    jump: ACCEPT
+  become: yes
+  ignore_errors: yes
+
+- name: allow port 8300 input
+  shell: iptables -I INPUT 4 -p tcp -m conntrack --ctstate NEW   --dport 8300 -j ACCEPT
+  when: consul_is_Server is defined
+  ignore_errors: yes
+
+- name: allow port 8301 input
+  shell: iptables -I INPUT 4 -p tcp -m conntrack --ctstate NEW   --dport 8301 -j ACCEPT
+  when: consul_is_Server is defined
+  ignore_errors: yes
+
+- name: allow port 8500 input
+  shell: iptables -I INPUT 4 -p tcp -m conntrack --ctstate NEW   --dport 8500 -j ACCEPT
+  ignore_errors: yes
+
+- name: allow port 8600 input
+  shell: iptables -I INPUT 4 -p tcp -m conntrack --ctstate NEW   --dport 8600 -j ACCEPT
+  when: consul_is_Server is defined
+  ignore_errors: yes
+
+
+- name: Is running
+  shell: "nohup consul agent {{ consul_extra }} 
+    -data-dir /data/consul/data 
+    -config-dir /data/consul/config 
+    -node={{ HostServerMachineName }} 
+    -bind={{ ip }} 
+    -client=0.0.0.0 
+    >{{ logs_dir }}/consul.log 2>&1 &"
+  tags: [consul]
+
+
+
+- name: Debug consul startup message
+  debug:
+    msg: "nohup consul agent {{ consul_extra }} 
+    -data-dir /data/consul/data 
+    -config-dir /data/consul/config 
+    -node={{ HostServerMachineName }} 
+    -bind={{ ip }} 
+    -client=0.0.0.0 
+    >{{ logs_dir }}/consul.log 2>&1 &"
+  tags: [consul]
+
+
+
+
+- name: Has joined
+  shell: consul join {{ consul_server_ip }}
+  when: consul_server_ip is defined
+  tags: [consul]  
+
+
+

@@ -1,0 +1,8 @@
+hosts: [
+  { host_ip: "192.168.99.100", host_name: "Client-Machine"},
+  { host_ip: "192.168.99.101", host_name: "Server-Machine"} 
+]
+
+obsolete_services:
+  - puppet
+  - chef-client

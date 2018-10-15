@@ -1,0 +1,15 @@
+logs_dir: /data/consul/logs
+
+directories:
+  - /data/consul/data
+  - /data/consul/config
+  - /data/consul/scripts
+  - "{{ logs_dir }}"
+
+files: [
+  { src: "consul", dest: "/usr/local/bin/consul", mode: "0755" },
+  { src: "config.json", dest: "/data/consul/config", mode: "0755" },
+  { src: "DiskCheck.sh", dest: "/data/consul/scripts", mode: "0755" },
+  { src: "CPUCheck.sh", dest: "/data/consul/scripts", mode: "0755" },
+]
+

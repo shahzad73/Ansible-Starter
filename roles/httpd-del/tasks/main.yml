@@ -1,0 +1,9 @@
+- name: Stopping httpd service
+  shell: "docker stop httpd1"
+  ignore_errors: yes
+
+
+- name: Removing httpd service
+  shell: "docker rm httpd1"
+  ignore_errors: yes
+

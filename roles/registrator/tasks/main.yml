@@ -1,0 +1,8 @@
+- name: Run the registorar container 
+  shell: "docker run -d --name {{ registrator_name }} 
+         -v /var/run/docker.sock:/tmp/docker.sock 
+         -h {{ HostServerMachineName }} 
+         gliderlabs/registrator 
+         -ip {{ ip }} consul://{{ ip }}:8500"
+  tags: [registrator]
+

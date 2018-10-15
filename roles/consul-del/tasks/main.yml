@@ -1,0 +1,28 @@
+- name: Shutdown Consul
+  shell: consul leave
+  ignore_errors: yes
+  tags: [consul]  
+
+
+- name: allow port 8300 input
+  shell: iptables -D INPUT -p tcp -m conntrack --ctstate NEW   --dport 8300 -j ACCEPT
+  ignore_errors: yes
+  when: consul_is_Server is defined
+
+
+- name: allow port 8301 input
+  shell: iptables -D INPUT -p tcp -m conntrack --ctstate NEW   --dport 8301 -j ACCEPT
+  ignore_errors: yes
+  when: consul_is_Server is defined
+
+
+- name: allow port 8500 input
+  shell: iptables -D INPUT -p tcp -m conntrack --ctstate NEW   --dport 8500 -j ACCEPT
+  ignore_errors: yes
+
+
+- name: allow port 8600 input
+  shell: iptables -D INPUT -p tcp -m conntrack --ctstate NEW   --dport 8600 -j ACCEPT
+  ignore_errors: yes
+  when: consul_is_Server is defined
+

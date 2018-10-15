@@ -1,0 +1,22 @@
+- name: Stop the nginx2 container 
+  shell: "docker container stop {{ nginx_docker_container_name }}"
+  ignore_errors: yes
+  tags: [registrator-del]
+
+
+- name: Remove the nginx2 container 
+  shell: "docker container rm {{ nginx_docker_container_name }}"
+  ignore_errors: yes
+  tags: [registrator-del]
+
+
+- name: Stop the registorar container 
+  shell: "docker container stop {{ registrator_name }}"
+  ignore_errors: yes
+  tags: [registrator-del]
+
+
+- name: Remove the registorar container 
+  shell: "docker container rm {{ registrator_name }}"
+  ignore_errors: yes
+  tags: [registrator-del]

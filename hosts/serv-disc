@@ -1,0 +1,8 @@
+[ServerIPs]
+192.168.99.101
+192.168.99.100
+
+[consul]
+192.168.99.101 consul_extra="-server -bootstrap -ui"
+192.168.99.101 consul_is_Server="Yes"
+192.168.99.100 consul_server_ip="192.168.99.101"

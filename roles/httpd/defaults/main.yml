@@ -1,0 +1,9 @@
+directories:
+  - /usr/httpdhtmlfiles
+
+files: [
+  { src: 'index.html', dest: '/usr/httpdhtmlfiles/index.html', mode: '0644' },
+]
+
+
+localhtmlfilespath: /usr/httpdhtmlfiles
